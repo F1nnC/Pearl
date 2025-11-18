@@ -1,0 +1,210 @@
+/* Use Apple's system font stack for an "Apple-like" appearance.
+   Optionally use Inter (see commented @import below) for the closest
+   cross-platform match if you want identical metrics on non-Apple devices.
+
+   To use Inter via Google Fonts, uncomment the next line and optionally
+   replace the first family in `--ui-font` with 'Inter'.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+
+:root {
+  --ui-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --base-font-size: 16px;
+  --base-line-height: 1.45;
+}
+
+/* clear background */
+.sidebar {
+  height: 100vh;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* Make the sidebar visually clear so the page background shows through. */
+  background-color: rgba(0,0,0,0.22); /* subtle dark tint as a readable fallback */
+  background-clip: padding-box;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px); /* creates a frosted/glass effect where supported */
+  overflow-x: hidden;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.35);
+}
+
+/* Sidebar list styling */
+.sidebar ul {
+  list-style: none;
+  margin: 18px 0 0 0;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 6px 0;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px 12px;
+  color: rgba(255,255,255,0.95);
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background-color 160ms ease, transform 80ms ease;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.sidebar a:hover,
+.sidebar a:focus {
+  background: rgba(255,255,255,0.06);
+  transform: translateX(4px);
+  outline: none;
+}
+
+.sidebar a:active {
+  transform: translateX(2px);
+}
+
+/* Optional small icon before link text */
+/* removed sidebar pseudo-icon (no bullet) */
+
+/* Style like chatgpt input box */
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+body {
+  font-family: var(--ui-font);
+  font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(
+    125% 125% at 50% 10%, /* Centered gradient for consistent appearance */
+    #000000 20%,
+    #2980b9 100%
+  ) no-repeat fixed;
+  background-size: cover;
+  min-height: 100vh; /* Ensure body fills viewport so background is visible */
+  display: flex; /* Centering the child elements */
+  flex-direction: column; /* Stack child elements vertically */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  text-align: center; /* Ensure text aligns properly in child elements */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px;
+}
+
+/* Headings: tighter letter-spacing and heavier weights like Apple's marketing site */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.1;
+}
+
+/* Utility class for large display headings */
+.display {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.02;
+}
+
+/* ChatGPT-like input area styles */
+.chat-wrapper {
+  position: fixed;
+  left: 250px; /* account for sidebar width */
+  right: 20px;
+  bottom: 18px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none; /* let the inner form handle interactions */
+}
+
+.chat-form {
+  width: 100%;
+  max-width: 980px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  pointer-events: auto;
+}
+
+.chat-input {
+  flex: 1 1 auto;
+  min-height: 44px;
+  max-height: 200px;
+  resize: none;
+  padding: 12px 16px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.4;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
+  outline: none;
+}
+
+.chat-input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+.chat-input:focus {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 0 3px rgba(255,255,255,0.02) inset;
+  border-color: rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.03);
+}
+
+
+.chat-send {
+  /* Clear / frosted circular button */
+  background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.95);
+  border: 1px solid rgba(255,255,255,0.06);
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 120ms ease, transform 80ms ease, opacity 120ms;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.chat-send:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-2px);
+}
+
+.chat-send:active { transform: translateY(1px); }
+
+.chat-send:focus { outline: 2px solid rgba(255,255,255,0.06); outline-offset: 2px; }
+
+/* Make sure the chat area looks good on small screens */
+@media (max-width: 640px) {
+  .chat-wrapper { left: 12px; right: 12px; }
+  .chat-send { padding: 10px 12px; }
+}
