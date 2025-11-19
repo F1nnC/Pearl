@@ -1,9 +1,6 @@
-/* Use Apple's system font stack for an "Apple-like" appearance.
-   Optionally use Inter (see commented @import below) for the closest
-   cross-platform match if you want identical metrics on non-Apple devices.
-
-   To use Inter via Google Fonts, uncomment the next line and optionally
-   replace the first family in `--ui-font` with 'Inter'.
+/* Pearl app stylesheet
+   - Organized: variables, base, components, utilities
+   - Media queries are grouped at the bottom
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
@@ -12,62 +9,55 @@
   --ui-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   --base-font-size: 16px;
   --base-line-height: 1.45;
+  --sidebar-width: clamp(220px, 10vw, 320px);
+  --gutter: 1rem;
+  --content-max: 980px;
+  --accent: #3b82f6;
 }
 
-/* clear background */
-.sidebar {
-  height: 100vh;
-  width: 250px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  /* Make the sidebar visually clear so the page background shows through. */
-  background-color: rgba(0,0,0,0.22); /* subtle dark tint as a readable fallback */
-  background-clip: padding-box;
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px); /* creates a frosted/glass effect where supported */
-  overflow-x: hidden;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.35);
-}
-
-/* Sidebar list styling */
-.sidebar ul {
-  list-style: none;
-  margin: 18px 0 0 0;
+/* Base: body & typography */
+body {
+  font-family: var(--ui-font);
+  font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
+  color: #ffffff;
+  margin: 0;
   padding: 0;
+  background: black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.sidebar li {
-  margin: 6px 0;
+/* Layout: main content container (centered to the right of sidebar) */
+.container {
+  width: min(85vw, var(--content-max));
+  margin-left: calc(var(--sidebar-width) + (100vw - var(--sidebar-width) - min(85vw, var(--content-max))) / 2);
+  padding: calc(var(--gutter) * 0.5);
 }
 
-.sidebar a {
-  display: block;
-  padding: 10px 12px;
-  color: rgba(255,255,255,0.95);
-  text-decoration: none;
-  border-radius: 10px;
-  transition: background-color 160ms ease, transform 80ms ease;
-  font-weight: 500;
-  font-size: 15px;
+/* Typography helpers */
+h1 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.1;
+  margin: 0 0 20px 0;
 }
 
-.sidebar a:hover,
-.sidebar a:focus {
-  background: rgba(255,255,255,0.06);
-  transform: translateX(4px);
-  outline: none;
+.display {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.02;
 }
 
-.sidebar a:active {
-  transform: translateX(2px);
-}
-
-/* Optional small icon before link text */
-/* removed sidebar pseudo-icon (no bullet) */
-
-/* Style like chatgpt input box */
+/* Forms */
 textarea {
   width: 100%;
   height: 150px;
@@ -79,75 +69,65 @@ textarea {
   resize: vertical;
 }
 
-body {
-  font-family: var(--ui-font);
-  font-size: var(--base-font-size);
-  line-height: var(--base-line-height);
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "kern" 1, "liga" 1;
-  color: #ffffff;
-  margin: 0;
+/* Sidebar: left fixed frosted panel */
+.sidebar {
+  height: 100vh;
+  width: var(--sidebar-width);
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.22);
+  background-clip: padding-box;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  overflow-x: hidden;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.35);
+}
+
+/* Sidebar navigation */
+.sidebar ul {
+  list-style: none;
+  margin: 18px 0 0 0;
   padding: 0;
-  background: radial-gradient(
-    125% 125% at 50% 10%, /* Centered gradient for consistent appearance */
-    #000000 20%,
-    #2980b9 100%
-  ) no-repeat fixed;
-  background-size: cover;
-  min-height: 100vh; /* Ensure body fills viewport so background is visible */
-  display: flex; /* Centering the child elements */
-  flex-direction: column; /* Stack child elements vertically */
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
-  text-align: center; /* Ensure text aligns properly in child elements */
 }
+.sidebar li { margin: 6px 0; }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 8px;
+.sidebar a {
+  display: block;
+  padding: 10px 12px;
+  color: rgba(255,255,255,0.95);
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background-color 160ms ease, transform 80ms ease;
+  font-weight: 500;
+  font-size: 15px;
 }
-
-/* Headings: tighter letter-spacing and heavier weights like Apple's marketing site */
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  line-height: 1.1;
+.sidebar a:hover, .sidebar a:focus {
+  background: rgba(255,255,255,0.06);
+  transform: translateX(4px);
+  outline: none;
 }
+.sidebar a:active { transform: translateX(2px); }
 
-/* Utility class for large display headings */
-.display {
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  line-height: 1.02;
-}
-
-/* ChatGPT-like input area styles */
+/* Chat input component */
 .chat-wrapper {
   position: fixed;
-  left: 250px; /* account for sidebar width */
-  right: 20px;
+  left: calc(var(--sidebar-width) + 1rem);
+  right: 1rem;
   bottom: 18px;
   display: flex;
   justify-content: center;
-  pointer-events: none; /* let the inner form handle interactions */
+  pointer-events: none;
 }
-
 .chat-form {
   width: 100%;
-  max-width: 980px;
+  max-width: var(--content-max);
   display: flex;
   gap: 8px;
   align-items: flex-end;
   pointer-events: auto;
 }
-
 .chat-input {
   flex: 1 1 auto;
   min-height: 44px;
@@ -163,20 +143,15 @@ h1 {
   box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
   outline: none;
 }
-
-.chat-input::placeholder {
-  color: rgba(255,255,255,0.6);
-}
-
+.chat-input::placeholder { color: rgba(255,255,255,0.6); }
 .chat-input:focus {
   box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 0 3px rgba(255,255,255,0.02) inset;
   border-color: rgba(255,255,255,0.14);
   background: rgba(255,255,255,0.03);
 }
 
-
+/* Chat send button */
 .chat-send {
-  /* Clear / frosted circular button */
   background: rgba(255,255,255,0.03);
   color: rgba(255,255,255,0.95);
   border: 1px solid rgba(255,255,255,0.06);
@@ -193,17 +168,55 @@ h1 {
   transition: background 120ms ease, transform 80ms ease, opacity 120ms;
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
-
-.chat-send:hover {
-  background: rgba(255,255,255,0.06);
-  transform: translateY(-2px);
-}
-
+.chat-send:hover { background: rgba(255,255,255,0.06); transform: translateY(-2px); }
 .chat-send:active { transform: translateY(1px); }
-
 .chat-send:focus { outline: 2px solid rgba(255,255,255,0.06); outline-offset: 2px; }
 
-/* Make sure the chat area looks good on small screens */
+/* Topbar (mobile) */
+.topbar { display: none; }
+.brand { color: #fff; font-weight: 700; font-size: 1.05rem; margin-left: 4px; }
+
+/* Hamburger SVG + morph */
+.hamburger {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1200;
+}
+.hamburger svg { display: block; }
+.hamburger svg rect { transform-origin: center; transform-box: fill-box; transition: transform 240ms cubic-bezier(.2,.9,.2,1), opacity 180ms ease; }
+.hamburger.open svg rect:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open svg rect:nth-child(2) { opacity: 0; transform: scaleX(0.2); }
+.hamburger.open svg rect:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile overlay & nav */
+.mobile-menu { position: fixed; inset: 0; z-index: 1100; pointer-events: none; opacity: 0; transition: opacity 220ms ease, background 220ms ease; background: rgba(0,0,0,0); }
+.mobile-menu.open { opacity: 1; pointer-events: auto; background: rgba(0,0,0,0.55); }
+.mobile-nav { position: fixed; left: 0; top: 0; height: 100vh; width: 100vw; background: linear-gradient(180deg, rgba(8,8,10,0.99), rgba(18,18,20,0.99)); transform: translateX(-100%); transition: transform 300ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms ease; padding: 18px; box-sizing: border-box; overflow-y: auto; }
+.mobile-menu.open .mobile-nav { transform: translateX(0); }
+.mobile-nav .mobile-close { position: absolute; top: 12px; right: 12px; background: transparent; border: none; color: #fff; font-size: 26px; line-height: 1; padding: 8px; border-radius: 8px; }
+.mobile-nav ul { list-style: none; padding: 72px 8px 24px 8px; margin: 0; }
+.mobile-nav li { margin: 8px 0; }
+.mobile-nav a { color: #fff; text-decoration: none; display: block; padding: 14px 12px; border-radius: 10px; font-size: 18px; }
+.mobile-nav a:hover { background: rgba(255,255,255,0.04); }
+
+/* Ensure interactivity */
+.hamburger { opacity: 1; pointer-events: auto; }
+
+/* Media queries (bottom) */
+@media (max-width: 880px) {
+  .sidebar { display: none; }
+  .container { width: min(94vw, var(--content-max)); margin-left: auto; margin-right: auto; }
+  .topbar { display: flex; align-items: center; gap: 12px; position: fixed; left: 0; right: 0; top: 0; height: 56px; padding: 0 12px; background: rgba(10,10,12,0.7); backdrop-filter: blur(6px); z-index: 1250; justify-content: space-between; }
+  .brand { color: #fff; font-weight: 700; font-size: 1.05rem; margin-left: 4px; }
+  body { padding-top: 56px; }
+  .hamburger { display: inline-block; position: relative; margin: 0; z-index: 1300; color: #fff; background: transparent; border: none; order: 1; }
+}
+
 @media (max-width: 640px) {
   .chat-wrapper { left: 12px; right: 12px; }
   .chat-send { padding: 10px 12px; }

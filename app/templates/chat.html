@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Pearl App</title>
+</head>
+<body>
+    <div class="sidebar">
+        <h1>Pearl</h1>
+        <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Chat</a></li>
+            <li><a href="#">Login</a></li>
+        </ul>
+    </div>
+
+    <div class="chat-wrapper">
+        <form class="chat-form" action="#" method="post">
+            <textarea class="chat-input" name="message" placeholder="Send a message..." rows="1"></textarea>
+            <button class="chat-send" type="submit" aria-label="Send">✓</button>
+        </form>
+    </div>
+</body>
+</html>
