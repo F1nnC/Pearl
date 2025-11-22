@@ -91,9 +91,39 @@
     </div>
 
     <div class="chat-wrapper">
-        <form class="chat-form" action="#" method="post">
-            <textarea class="chat-input" name="message" placeholder="Send a message..." rows="1"></textarea>
-            <button class="chat-send" type="submit" aria-label="Send">✓</button>
+        <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-relevant="additions">
+            <!-- Example: user bubble -->
+            <div class="message user-message" data-role="user">
+                <div class="message-bubble">
+                    Hey — what's happening at the community meetup tonight?
+                </div>
+            </div>
+
+            <!-- Example: bot document-style response (supports simple markdown-like formatting) -->
+            <div class="message bot-message" data-role="bot">
+                <div class="message-doc" id="example-bot-doc">
+                    <h2>Community Meetup — Tonight at 7:00 PM</h2>
+                    <p>Here's a quick rundown of the event:</p>
+                    <ul>
+                        <li><strong>Location:</strong> Main Hall, 3rd Floor</li>
+                        <li><strong>Schedule:</strong>
+                            <ul>
+                                <li>7:00 PM — Welcome & networking</li>
+                                <li>7:20 PM — Lightning talks (3×10 min)</li>
+                                <li>8:00 PM — Q&amp;A + open discussion</li>
+                            </ul>
+                        </li>
+                        <li><em>Bring a laptop if you want to demo something.</em></li>
+                    </ul>
+                    <p>If you need to run a quick command to check the venue map, try:</p>
+                    <pre><code>open /docs/venue-map.pdf</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <form class="chat-form" id="chat-form" action="#" method="post" onsubmit="return false;">
+            <textarea id="chat-input" class="chat-input" name="message" placeholder="Send a message..." rows="1"></textarea>
+            <button class="chat-send" id="chat-send" type="button" aria-label="Send">✓</button>
         </form>
     </div>
 </body>
