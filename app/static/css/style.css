@@ -23,7 +23,7 @@ body {
   color: #ffffff;
   margin: 0;
   padding: 0;
-  background: black;
+  background: #0d1117;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -76,7 +76,7 @@ textarea {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(14, 14, 14, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   background-clip: padding-box;
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
