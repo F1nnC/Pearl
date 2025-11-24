@@ -35,10 +35,18 @@ body {
 }
 
 /* Layout: main content container (centered to the right of sidebar) */
+.main-wrap {
+  /* Bounds area between sidebar and right edge; container will center inside this */
+  margin-left: calc(var(--sidebar-width) + 1rem);
+  margin-right: 1rem;
+}
+
 .container {
-  width: min(85vw, var(--content-max));
-  margin-left: calc(var(--sidebar-width) + (100vw - var(--sidebar-width) - min(85vw, var(--content-max))) / 2);
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto; /* center within .main-wrap */
   padding: calc(var(--gutter) * 0.5);
+  box-sizing: border-box;
 }
 
 /* Typography helpers */
@@ -355,4 +363,38 @@ textarea {
 @media (max-width: 880px) {
   .message-bubble { max-width: 78%; }
   .message-doc { max-width: 92%; }
+}
+
+/* Landing page wireframe styles */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 28px;
+  align-items: center;
+  padding: 36px 0;
+}
+.hero-inner {
+  text-align: left;
+}
+.hero-inner h1 { font-size: clamp(1.6rem, 3.8vw, 2.4rem); margin-bottom: 12px; }
+.lead { color: #cbdff6; margin-bottom: 18px; max-width: 60ch; }
+.hero-cta { display: flex; gap: 12px; align-items: center; }
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: 600; }
+.btn.primary { background: var(--accent); color: white; }
+.btn.ghost { background: rgba(255,255,255,0.04); color: #e6eef8; border: 1px solid rgba(255,255,255,0.04); }
+.hero-visual .wireframe-card { height: 220px; border-radius: 12px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px dashed rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; color:#9fb6dd; }
+
+.features { margin-top: 18px; text-align: left; }
+.features h2 { margin-bottom: 14px; }
+.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.card { background: rgba(255,255,255,0.02); padding: 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.02); }
+.card h3 { margin-top: 0; margin-bottom: 8px; }
+
+.footer-cta { margin: 28px 0 80px 0; display:flex; gap:18px; align-items:center; justify-content:space-between; }
+.muted { color: #a9bfdf; }
+
+@media (max-width: 880px) {
+  .hero { grid-template-columns: 1fr; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .footer-cta { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
